@@ -175,6 +175,34 @@ To maintain a clean system, apply different workflows for structural templates a
 
 ---
 
+## Optional: Shared Media Library (Centralized Media)
+
+By default, WordPress Multisite isolates the media library for each sub-site. To save server disk space, avoid duplicate image uploads, and maintain a single source of truth for your assets, you can force all sub-sites to use the Primary Site's Media Library (Blog ID 1).
+
+I have provided two standalone implementation files in this repository depending on your tech stack:
+
+### Option A: Standard WP Media Library
+If you are using the default WordPress Media Library without any folder management plugins, use this script.
+👉 **File:** [`standard-media-sync.php`](./standard-media-sync.php)
+
+### Option B: HappyFiles Compatibility
+If you use the popular **HappyFiles** plugin to organize your media in Bricks Builder, use this extended script. It includes additional AJAX and REST API interceptors to sync your folder structures across the network.
+👉 **File:** [`happyfiles-media-sync.php`](./happyfiles-media-sync.php)
+
+### How to Install
+
+Choose **only one** of the files above based on your needs, then install it using one of these methods:
+
+1. **Method 1 (Recommended):** Download the file and drop it directly into your `/wp-content/mu-plugins/` directory. WordPress will automatically execute it network-wide as a Must-Use plugin.
+2. **Method 2:** Place the file in your primary child theme folder and include it in your `functions.php` file using:
+   `require_once get_stylesheet_directory() . '/name-of-the-file.php';`
+
+**⚠️ Important Notice:**
+When either of these scripts is active, uploading an image while working on a sub-site canvas (e.g., `/zh/`) will save the file directly inside the Main Site's database and `uploads` directory.
+
 ## 📄 License
+
+---
+
 
 This project is open-source and available under the [MIT License](LICENSE).
